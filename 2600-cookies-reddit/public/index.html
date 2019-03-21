@@ -1,0 +1,67 @@
+<html>
+    <!-- 1 -->
+    <body>
+        <!-- 1 -->
+        <h2>Signup</h2>
+        <!-- 2 -->
+        <form action="/signup" method="POST" enctype="multipart/form-data">
+            <!-- 3 -->
+            <div>Enter your username</div>
+        <!-- 4 -->
+            <input type="text" name="username"></input>        
+        <!-- 4 -->
+            <div>Enter your password</div>
+        <!-- 5 -->
+            <input type="text" name="password"></input>
+        <!-- 5 -->
+            <input type="submit" value="sign me up!"></input>
+        <!-- 6 -->
+        </form>
+    <!-- 3 -->
+    <h2>Login</h2>
+    <!-- 7 -->
+    <form action="/login" method="POST" enctype="multipart/form-data">
+        <!-- 8 -->
+        <div>Username</div>
+        <!-- 8 -->
+        <input type="text" name="username"></input>
+        <!-- 8 -->
+        <div>Password</div>
+        <!-- 8 -->
+        <input type="text" name="password"></input>
+        <!-- 8 -->
+        <input type="submit" value="log me in!"></input>
+        <!-- 8 -->
+    </form>
+    <!-- 8 -->
+    </body>
+    <!-- 1 -->
+</html>
+<!-- 1 -->
+
+<!-- meta 
+({
+    text: {
+        1: `Our end goal is to create a webapge with two forms. A basic HTML file has at least an HTML tag and a body tag.
+         The body contains everything the user will see. In the end
+         `,
+        2: `The first form is going to be a signup form. 
+        We use an h2 tag to display this information to the user`,
+        3: `The form tag starts a form. The action dictates the destination endpoint of the form submission.
+        A form is submitted when a submit button is clicked or when the user presses enter in a text input box. 
+        The enctype attribute dictates how the data will be formatted in the HTTP request. 
+        We'll always be using the same enctype. The details of enctype are beyond the
+        scope of this course`,
+        4: `The first text input box will contain the username. We use a div to communicate its purpose to the user. 
+        It has username attribute, which is important in the backend`,
+        5: `The second text input box will contain the password. The only difference with the first input box
+        is the name attribute. Can you see the difference?`,
+        6: `A form should always have submit button that the user can click. The value attribute is what is displayed
+        on the button. The browser knows its a button because of the type attribute. Can you see how its different from the other
+        input elements?`,
+        7: `We start creating the login form. This line simply describes the form below it.`,
+        8: `We then create a login form. Can you spot the two differences with the signup form?
+        Which difference do you think is more important?`
+    }
+})
+-->
