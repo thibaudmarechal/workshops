@@ -2,18 +2,19 @@ let express = require("express")
 let app = express() 
 let fs = require("fs") 
 let multer = require("multer") 
+let upload = multer() 
 app.use(multer().none()) 
 let passwordsAssoc = {} 
-app.get("/", (req, res) => { 
-  res.send(fs.readFileSync(__dirname + "/public/index.html").toString()) 
-}) 
-app.post("/signup", (req, res) => { 
+app.use('/', express.static(__dirname + '/public')) 
+app.post("/signup", upload.none(), (req, res) => { 
+  console.log("/signup hit", req.body) 
   let username = req.body.username 
   let password = req.body.password 
   passwordsAssoc[username] = password 
   res.send("<html><body> signup successful </body></html>") 
 }) 
-app.post("/login", (req, res) => { 
+app.post("/login", upload.none(), (req, res) => { 
+  console.log("/login hit", req.body) 
   let username = req.body.username 
   let passwordGiven = req.body.password 
   let expectedPassword = passwordsAssoc[username] 

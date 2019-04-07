@@ -17,7 +17,7 @@ let renderAllItems = () => {  /* 4 */
   </div> /* 4 */
 } /* 4 */
 
-renderSeller = routerData => { /* 8 */
+let renderSeller = routerData => { /* 8 */
   let sellerId = routerData.match.params.sid /* 9 */
   let candidates = /* 10 */
     initialSellers.filter(seller => { return seller.id === sellerId }) /* 10 */
@@ -29,8 +29,8 @@ class App extends Component { /* 1 */
     return ( /* 2 */
       <BrowserRouter> {/* 2 */}
         <div> {/* 2 */}
-          <Route exact={true} path='/' component={renderAllItems} /> {/* 3 */}
-          <Route exact={true} path='/seller/:sid' component={renderSeller} /> {/* 7 */}
+          <Route exact={true} path='/' render={renderAllItems} /> {/* 3 */}
+          <Route exact={true} path='/seller/:sid' render={renderSeller} /> {/* 7 */}
         </div> {/* 2 */}
       </BrowserRouter> /* 2 */
     ); /* 2 */

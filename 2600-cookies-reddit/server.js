@@ -20,14 +20,15 @@ let makePage = () => {
     '<input type="submit"></input>' + 
     '</form></body></html>' 
 } 
-app.get("/", (req, res) => { 
-  console.log("Request to / endpoint") 
-  res.send(fs.readFileSync(__dirname + "/public/index.html").toString()) 
-}) 
-app.post("/signup", upload.none(), (req, res) => { 
-  console.log("request to /signup", req.body) 
-  passwordsAssoc[req.body.username] = req.body.password 
-  res.send("<html><body> signup successful </body></html>") 
+app.post("/thread", upload.none(), (req, res) => { 
+  console.log("creating a new thread", req.body) 
+  let sessionId = req.cookies.sid 
+  let username = sessions[sessionId] 
+  threads.push({ 
+    user: username, 
+    desc: req.body.description 
+  }) 
+  res.send(makePage()) 
 }) 
 app.post("/login", upload.none(), (req, res) => { 
   console.log("request to /login", req.body) 
@@ -40,14 +41,13 @@ app.post("/login", upload.none(), (req, res) => {
   res.cookie('sid', sessionId); 
   res.send(makePage()) 
 }) 
-app.post("/thread", upload.none(), (req, res) => { 
-  console.log("creating a new thread", req.body) 
-  let sessionId = req.cookies.sid 
-  let username = sessions[sessionId] 
-  threads.push({ 
-    user: username, 
-    desc: req.body.description 
-  }) 
-  res.send(makePage()) 
+app.post("/signup", upload.none(), (req, res) => { 
+  console.log("request to /signup", req.body) 
+  passwordsAssoc[req.body.username] = req.body.password 
+  res.send("<html><body> signup successful </body></html>") 
+}) 
+app.get("/", (req, res) => { 
+  console.log("Request to / endpoint") 
+  res.send(fs.readFileSync(__dirname + "/public/index.html").toString()) 
 }) 
 app.listen(4000) 

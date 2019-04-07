@@ -1,12 +1,10 @@
 let express = require('express') 
 let app = express() 
-let page = "<html><body>Hello world</body></html>" 
-app.get('/index.html', (req, res) => { 
-    res.send(page) 
-}) 
-app.get('/otherpage', (req, res) => { 
-    let contents = fs.readFileSync(__dirname + '/public/anotherpage').toString() 
-    res.send(contents) 
+let count = 0 
+app.get('/count', (req, res) => { 
+    console.log("I received a request to /count ", count) 
+    count++ 
+    res.send("<h1>This page has been visited " + count + " times</h1>") 
 }) 
 app.use('/static', express.static(__dirname + '/public')) 
 app.listen(4000) 

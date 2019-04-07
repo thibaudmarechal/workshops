@@ -1,7 +1,7 @@
 let express = require("express") 
 let app = express() 
 let multer = require("multer") 
-app.use(multer().none()) 
+let upload = multer() 
 let todoItems = [] 
 let makePage = () => { 
   let lified = todoItems.map(item => { 
@@ -21,7 +21,7 @@ let makePage = () => {
 app.get("/", (req, res) => { 
   res.send(makePage()) 
 }) 
-app.post("/item", (req, res) => { 
+app.post("/item", upload.none(), (req, res) => { 
   let newTodo = req.body.todo 
   todoItems.push(newTodo) 
   res.send(makePage()) 
