@@ -3,7 +3,6 @@ let app = express()
 let fs = require("fs") 
 let multer = require("multer") 
 let upload = multer() 
-app.use(multer().none()) 
 let passwordsAssoc = {} 
 app.use('/', express.static(__dirname + '/public')) 
 app.post("/signup", upload.none(), (req, res) => { 
@@ -24,4 +23,6 @@ app.post("/login", upload.none(), (req, res) => {
   } 
   res.send("<html><body> login successful </body></html>") 
 }) 
-app.listen(4000) 
+app.listen(4000, () => { 
+  console.log("server started") 
+}) 

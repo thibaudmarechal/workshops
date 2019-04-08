@@ -50,4 +50,6 @@ app.get("/", (req, res) => {
   console.log("Request to / endpoint") 
   res.send(fs.readFileSync(__dirname + "/public/index.html").toString()) 
 }) 
-app.listen(4000) 
+app.listen(4000, () => { 
+  console.log("server started") 
+}) 
