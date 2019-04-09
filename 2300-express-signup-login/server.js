@@ -1,6 +1,5 @@
 let express = require("express") 
 let app = express() 
-let fs = require("fs") 
 let multer = require("multer") 
 let upload = multer() 
 let passwordsAssoc = {} 
