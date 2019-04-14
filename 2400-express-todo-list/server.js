@@ -26,4 +26,6 @@ app.post("/item", upload.none(), (req, res) => {
   todoItems.push(newTodo) 
   res.send(makePage()) 
 }) 
-app.listen(4000) 
+app.listen(4000, () => { 
+  console.log("the server has started") 
+}) 

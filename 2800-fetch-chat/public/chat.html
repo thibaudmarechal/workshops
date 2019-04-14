@@ -5,9 +5,9 @@
     <!-- 1 -->
     <ul id="msg-list"></ul>
     <!-- 2 -->
-    <form id="chat-form">
+    <form action="/messages" method="POST" enctype="multipart/form-data">
         <!-- 3 -->
-        <input type="text" id="user-input"></input>
+        <input type="text" name="message"></input>
         <!-- 4 -->
         <input type="submit"></input>
         <!-- 4 -->
@@ -27,10 +27,8 @@
         1: `We create an HTML file with an html tag and a body tag  `,
         2: `This ul will display all the messages in the chat   `,
         3: `With this form, the user will be able to send a new chat message
-        to the server. The form element does not have an action because the submit
-        functionality will be done in javascript   `,
-        4: `The input element is where the user will type their messages.
-         It has an id attribute so that we can get a reference to the DOM node in our javascript  `,
+        to the server.   `,
+        4: `The input element is where the user will type their messages. `,
         5: `We load our javscript (where is the app.js file located?) (where does the word static come from?)`
 
     }

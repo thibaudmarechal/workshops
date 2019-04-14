@@ -1,6 +1,5 @@
 let express = require("express") 
 let app = express() 
-let fs = require("fs") 
 let cookieParser = require('cookie-parser') 
 let multer = require("multer") 
 let upload = multer() 
@@ -10,7 +9,7 @@ let sessions = {}
 let messages = [] 
 app.use('/static', express.static(__dirname + '/public')) 
 app.get("/", (req, res) => { 
-  res.send(fs.readFileSync(__dirname + "/public/index.html").toString()) 
+  res.sendFile(__dirname + "/public/index.html") 
 }) 
 app.post("/messages", upload.none(), (req, res) => { 
   console.log('POST messages body', req.body) 
@@ -41,6 +40,6 @@ app.post("/login", upload.none(), (req, res) => {
   let sid = Math.floor(Math.random() * 10000000) 
   sessions[sid] = username 
   res.cookie('sid', sid) 
-  res.send(fs.readFileSync(__dirname + '/public/chat.html').toString()) 
+  res.sendFile(__dirname + '/public/chat.html') 
 }) 
 app.listen(4000) 

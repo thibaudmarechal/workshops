@@ -5,7 +5,7 @@ let multer = require("multer")
 let upload = multer({ 
   dest: __dirname + '/uploads/' 
 }) 
-app.use('/images', express.static('uploads')) 
+app.use('/images', express.static(__dirname + '/uploads')) 
 let posts = [] 
 let makePage = () => { 
   let postElements = posts.map(post => { 

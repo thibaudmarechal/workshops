@@ -1,21 +1,3 @@
-body {
-    /* 1 */
-    color: red
-        /* 1 */
+body {    
+    color: red        
 }
-
-/* 1 */
-
-
-
-/* meta
-
-{
-    text: {1: `This css file is referred to inside the page3.html file.
-         As soon as any browser loads the page3.html file, it will make a request
-        to your express server for /static/style.css . There is no endpoint inside the server.js
-    file specifically for that path. However, because we use express.static, 
-an endpoint is automatically generated for this file.`}
-}
-
-*/
