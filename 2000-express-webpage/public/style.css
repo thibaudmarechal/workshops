@@ -1,3 +1,33 @@
-body {    
-    color: red        
+body {
+    /* 1 */
+    color: red
+        /* 1 */
 }
+
+/* 1 */
+
+
+
+/* meta
+
+{
+    text: {1: `
+        You must place this file in the public/ folder
+
+        This css file is referred to inside the index.html file.
+        
+            <link href="/static/style.css" rel="stylesheet">
+        
+
+         As soon as any browser loads the index.html file, it will make a request
+        to your express server for the /static/style.css endpoint .
+        
+        We did not create an endpoint for this file inside server.js . However,
+        in our server.js file we have a line that created the endpoint for us:
+        
+        app.use('/static', express.static(__dirname + '/public'))
+        
+        `}
+}
+
+*/

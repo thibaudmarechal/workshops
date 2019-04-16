@@ -18,6 +18,7 @@ app.post("/messages", upload.none(), (req, res) => {
     msg: req.body.message 
   } 
   messages.push(newMessage) 
+  res.send("success") 
 }) 
 app.get("/messages", (req, res) => { 
   console.log('Sending back the messages') 
