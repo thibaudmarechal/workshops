@@ -14,14 +14,14 @@ let fetchAndUpdate = () => { // 1
             }) // 8
         }) // 4
 } // 1
-
+fetchAndUpdate() // 1
 setInterval(fetchAndUpdate, 500) // 1
 
 /* meta
 ({
     text: {
         1: `We call a function every 500ms. This function will fetch data from the backend
-        and update the user interface.  `,
+        and update the user interface.  We also call it right away to see the messages as quickly as possible.`,
         2: `We make a GET HTTP request to /messages  `,
         3: `fetch will not give us the response body immediately. To get the response
         body, we need to call .text(). text is a property of the object that fetch
