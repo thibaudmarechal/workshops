@@ -18,7 +18,7 @@ app.post("/messages", upload.none(), (req, res) => {
     msg: req.body.message 
   } 
   messages.push(newMessage) 
-  res.send("success") 
+  res.sendFile(__dirname + '/public/chat.html') 
 }) 
 app.get("/messages", (req, res) => { 
   console.log('Sending back the messages') 
