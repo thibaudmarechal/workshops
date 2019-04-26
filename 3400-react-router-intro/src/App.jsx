@@ -14,10 +14,10 @@ let renderAllItems = () => { // 6
 } // 6
 let renderItem = routerData => { // 10
     if (routerData.match.params.itemId === "abc") { // 11
-        return (<div>A very nice hat. Only 300$ <img src="/hat.jpg" /></div>) // 11
+        return (<div>A very nice hat. Only 4 remaining <img src="/hat.jpg" /></div>) // 11
     } // 11
     if (routerData.match.params.itemId === "def") { // 12
-        return (<div>A boat. Only 3000$ <img src="/boat.jpg" /></div>) // 12
+        return (<div>A boat. Only 4 remaining <img src="/boat.jpg" /></div>) // 12
     } // 12
     return (<div> Unknown item </div>) // 13
 } // 10

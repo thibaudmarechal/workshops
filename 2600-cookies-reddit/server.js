@@ -1,53 +1,102 @@
-let express = require("express") 
-let app = express() 
-let multer = require("multer") 
-let upload = multer() 
-let cookieParser = require('cookie-parser') 
-app.use(cookieParser()); 
-let threads = [] 
-let passwordsAssoc = {} 
-let sessions = {} 
-let makePage = () => { 
-  let threadElements = threads.map(post => { 
-    return '<div><h2>' + post.desc + '</h2><h4>' + post.user + '</h4></div>' 
-  }) 
-  let asString = threadElements.join("\n") 
-  return "<html><body> " + 
-    asString + 
-    '<form action="/thread" method="POST" enctype="multipart/form-data">' + 
-    '<input type="text" name="description"></input>' + 
-    '<input type="submit"></input>' + 
-    '</form></body></html>' 
-} 
-app.post("/thread", upload.none(), (req, res) => { 
-  console.log("creating a new thread", req.body) 
-  let sessionId = req.cookies.sid 
-  let username = sessions[sessionId] 
-  threads.push({ 
-    user: username, 
-    desc: req.body.description 
-  }) 
-  res.send(makePage()) 
-}) 
-app.post("/login", upload.none(), (req, res) => { 
-  console.log("request to /login", req.body) 
-  if (passwordsAssoc[req.body.username] !== req.body.password) { 
-    res.send("<html><body> invalid username or password </body></html>") 
-    return 
-  } 
-  let sessionId = '' + Math.floor(Math.random() * 1000000) 
-  sessions[sessionId] = req.body.username 
-  res.cookie('sid', sessionId); 
-  res.send(makePage()) 
-}) 
-app.post("/signup", upload.none(), (req, res) => { 
-  console.log("request to /signup", req.body) 
-  passwordsAssoc[req.body.username] = req.body.password 
-  res.send("<html><body> signup successful </body></html>") 
-}) 
-app.get("/", (req, res) => { 
-  res.sendFile(__dirname + "/public/index.html") 
-}) 
-app.listen(4000, () => { 
-  console.log("server started") 
-}) 
+let express = require("express") // 1
+let app = express() // 1
+let multer = require("multer") // 1
+let upload = multer() // 1
+let cookieParser = require('cookie-parser') // 2
+app.use(cookieParser()); // 2
+let threads = [] // 3
+let passwordsAssoc = {} // 4
+let sessions = {} // 5
+let makePage = () => { // 6
+  let threadElements = threads.map(post => { // 7
+    return '<div><h2>' + post.desc + '</h2><h4>' + post.user + '</h4></div>' // 7
+  }) // 7
+  let asString = threadElements.join("\n") // 8
+  return "<html><body> " + // 9
+    asString + // 9
+    '<form action="/thread" method="POST" enctype="multipart/form-data">' + // 9
+    '<input type="text" name="description"></input>' + // 9
+    '<input type="submit"></input>' + // 9
+    '</form></body></html>' // 9
+} // 6
+app.post("/thread", upload.none(), (req, res) => { // 21
+  console.log("creating a new thread", req.body) // 21
+  let sessionId = req.cookies.sid // 22
+  let username = sessions[sessionId] // 23
+  threads.push({ // 24
+    user: username, // 24
+    desc: req.body.description // 24
+  }) // 24
+  res.send(makePage()) // 25
+}) // 21
+app.post("/login", upload.none(), (req, res) => { // 14
+  console.log("request to /login", req.body) // 15
+  if (passwordsAssoc[req.body.username] !== req.body.password) { // 16
+    res.send("<html><body> invalid username or password </body></html>") // 16
+    return // 16
+  } // 16
+  let sessionId = '' + Math.floor(Math.random() * 1000000) // 17
+  sessions[sessionId] = req.body.username // 18
+  res.cookie('sid', sessionId); // 19
+  res.send(makePage()) // 20
+}) // 14
+app.post("/signup", upload.none(), (req, res) => { // 11
+  console.log("request to /signup", req.body) // 11
+  passwordsAssoc[req.body.username] = req.body.password // 12
+  res.send("<html><body> signup successful </body></html>") // 13
+}) // 11
+app.get("/", (req, res) => { // 10
+  res.sendFile(__dirname + "/public/index.html") // 10
+}) // 10
+
+app.listen(4000, () => { // 1
+  console.log("server started") // 1
+}) // 1
+
+/* meta
+({
+  text: {
+    1: `Similar to the previous workshop, we import the libraries that we need and we start the server on port 4000. The second argument passed
+    to the function call is a function that gets called once the server has started. It's optional. 
+    we use express.static to create the / endpoint that responds with the contents of /public/index.html`,
+    2: `We're importing the cookie parser library, which helps us manage the cookies in the HTTP requests and responses.
+    After importing it, we need to tell express to use it.`,
+    3: `We create an array and we store a reference to that array inside the threads variable. Every time a user posts
+    something, it will get added to this array`,
+    4: `This object associate the usernames with the passwords like in a previous workshop`,
+    5: `We create an object and store a reference to that oject in the passwordsAssoc variable. The properties of this object
+    are the session ids and the values associated with each property are the usernames. Every time a user logs in
+    a new session id will be generated and it will get added to this object.`,
+    6: `We have a function to make the webpage dynamically. It needs to be a function because the page
+    depends on the elements of the threads array`,
+    7: `Each element of thread is going to be an object with the poster's username and the text contained in the
+    post. The properties that store this data are desc and user`,
+    8: `We convert the array to a string`,
+    9: `We return the dynamically generated HTML formatted string`,
+     10: `The / endpoint simply sends back the contents of public/index.html . res.sendFile reads a file and then sends the contents of that file as the HTTP response body.`,
+     11: `This endpoint receives HTTP requests generated by one of the forms in public/index.html. We console log
+     the HTTP request for debugging purposes.`,
+    12: `We update the passwordsAssoc object with the values provided by the user when he filled out the form`,
+    13: `Tell the user that the signup was successful`,
+    14: `This endpoint receives HTTP requests generated by the other form in public/index.html.`,
+    15: `We console log
+     the HTTP request for debugging purposes.`,
+    16: `We check the provided password with the expected password. For more a more detailed explanation, please refer to the login and signup workshop.`,
+    17: `We genereate a sessionId. Henceforth, the sessionId will be sent in every HTTP request every time the user sends an 
+     HTTP request to the server. The server can use this sessionId to identify who sent the HTTP request.`,
+    18: `Add a property to the sessions object. For example, if sessionId = '142' and req.body.username ='bob',
+      then sessions = {"142": "bob"} assuming it was empty before.`,
+    19: `This command tells express to add a Set-Cookie header in the HTTP response. When the browser
+     sees this header, it stores the cookie and sends it back at every HTTP request. `,
+    20: `Finally, send back the dynamically generated page with all the threads.`,
+    21: `This endpoint receives HTTP requests from the form in the dynamically generated HTML page. We log
+     the form fields for debugging purposes.`,
+    22: `We get the session id from the HTTP request. The name sessionId matches the name we gave the cookie when we 
+     called res.cookie in a previous step.`,
+    23: `If we have a session id then we can get the username by using the sessions object that we populated in the
+     /login endpoint`,
+    24: `Now that we have the username, we can add the thread to our threads array. Can you find what description corresponds to?`,
+    25: `We send back the dynamically generated page.`
+  }
+})
+*/

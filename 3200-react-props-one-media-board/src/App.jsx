@@ -7,11 +7,12 @@ class App extends Component { // 3
     render() { // 4
         return (<div>  {/* 5 */}
             {videos.map( // 6
-                vd => // 6
-                    <Video /* 6 */
+                vd => { // 6
+                    return (<Video /* 6 */
                         header={vd.name} /* 6 */
                         videoId={vd.id} /* 6 */
-                        footer={vd.caption} />)} {/* 6 */}
+                        footer={vd.caption} />) /* 6 */
+                })} {/* 6 */}
         </div>) // 5
     } // 4
 } // 3

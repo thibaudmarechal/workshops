@@ -21,7 +21,7 @@ let initialSellers = [{ // 1
     name: "Hank Green", // 8
     rating: "2 stars", // 8
 }] // 1
-
+export { initialItems, initialSellers } // 1
 
 /* meta
 ({
@@ -42,7 +42,7 @@ Each element of the second array will the following properties:
 - name
 - rating
 `,
-        2: `The description property of an item is a string that describes the item. The id property is a 
+        2: `The description property of an item is a string that describes the item. The id property is a
         unique string that can be used to refer to the item. The id property will be useful
         for the exercises. The value of the id property should be unique.`,
         3: `The sellerId property uniquely identifies the seller in the second array. This represents the person

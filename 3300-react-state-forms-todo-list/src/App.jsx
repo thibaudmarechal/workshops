@@ -63,7 +63,7 @@ because, as we will see later, there is a method in the Component superclass tha
 - listName: The name chosen by the user for his todo list. Initially it is undefined
 - allTodos: An array that contains all the todo items in the list.
 - userInput: The user will enter their todo item in an input box. This property keepstrack of what the user is entering`,
-            5: `The component has a componentDidMount method. This method has a special. It is called
+            5: `The component has a componentDidMount method. This method has a special name. It is called
 after the first render. We put a console.log for debugging purposes`  ,
             6: `We ask the user for the name of the list. The window.prompt function makes
 a popup appear. It returns whatever the user entered in the popup. The console.log is for debugging purposes`,

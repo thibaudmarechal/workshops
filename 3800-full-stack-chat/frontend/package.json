@@ -8,7 +8,7 @@
     "build": "webpack --mode production"
   },
   "keywords": [],
-  "author": "Jacques Le Normand",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -25,7 +25,8 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.3.4",
-    "react-router-dom": "^5.0.0"
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1"
   }
 }

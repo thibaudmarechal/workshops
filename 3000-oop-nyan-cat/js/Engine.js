@@ -110,7 +110,7 @@ class Engine { // 1
     to the \`enemies\` array `,
     13: `We check if the player is dead. If he is, we alert the user and return from the method (Why is the
       return statement important?)`,
-    14: `If the player is not dead, then we put a setTimeout to run the gameLoop in 20 seconds`,
+    14: `If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds`,
     15: `This method is not implemented correctly, which is why the burger never dies. In your exercises
     you will fix this method.  `
   }

@@ -1,6 +1,7 @@
 let fetchAndUpdate = () => { // 1
     fetch('/messages') // 2
         .then(response => { // 3
+
             return response.text() // 3
         }) // 3
         .then(responseBody => { // 4
@@ -14,6 +15,7 @@ let fetchAndUpdate = () => { // 1
             }) // 8
         }) // 4
 } // 1
+
 fetchAndUpdate() // 1
 setInterval(fetchAndUpdate, 500) // 1
 
