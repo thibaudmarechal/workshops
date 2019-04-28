@@ -44,11 +44,11 @@ export default App; /* 1 */
     1: `We are importing
 - The css
 - React
-- The browser router components we need
+- The BrowserRouter and Route components
 - The Seller and Item components we already created ourselves
 - The data that will be shown to the user
 
-We create a component and export it
+Using npm, you will need to install the react-router-dom module. We also create a component and export it.
 `,
     2: `The component has a render method which returns a react element. The react element is created from the BrowserRouter component.
 We do this because we need to use the Route and Link components and we can only do that if they are placed under the BrowserRouter component
