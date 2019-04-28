@@ -3,20 +3,19 @@ let app = express()
 let multer = require("multer") 
 let upload = multer() 
 let todoItems = [] 
+let h = (element, children) => { 
+  return '<' + element + '>' + children.join('\n') + '</' + element.split().pop() + '>' 
+} 
 let makePage = () => { 
   let lified = todoItems.map(item => { 
-    return "<li>" + item + "</li>" 
+    return h('li', [item]) 
   }) 
-  let asString = lified.join("\n") 
-  return "<html><body> " + 
-    "<ul>" + 
-    asString + 
-    "</ul>" + 
-    '<form action="/item" method="POST" enctype="multipart/form-data">' + 
-    '<input type="text" name="todo"></input>' + 
-    '<input type="submit"></input>' + 
-    '</form>' + 
-    '</body></html>' 
+  return h('html', [ 
+    h('body', [ 
+      h('ul', lified), 
+      h('form action="/item" method="POST" enctype="multipart/form-data"', [ 
+        h('input type="text" name="todo"', []), 
+        h('input type="submit"', [])])])]) 
 } 
 app.get("/", (req, res) => { 
   res.send(makePage()) 

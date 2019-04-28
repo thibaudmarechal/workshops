@@ -7,17 +7,19 @@ app.use(cookieParser());
 let threads = [] 
 let passwordsAssoc = {} 
 let sessions = {} 
+let h = (element, children) => { 
+  return '<' + element + '>' + children.join('\n') + '</' + element.split().pop() + '>' 
+} 
 let makePage = () => { 
   let threadElements = threads.map(post => { 
     return '<div><h2>' + post.desc + '</h2><h4>' + post.user + '</h4></div>' 
   }) 
-  let asString = threadElements.join("\n") 
-  return "<html><body> " + 
-    asString + 
-    '<form action="/thread" method="POST" enctype="multipart/form-data">' + 
-    '<input type="text" name="description"></input>' + 
-    '<input type="submit"></input>' + 
-    '</form></body></html>' 
+  return h('html', [ 
+    h('body', [ 
+      h('div', threadElements), 
+      h('form action="/thread" method="POST" enctype="multipart/form-data"', [ 
+        h('input type="text" name="description"', []), 
+        h('input type="submit"', [])])])]) 
 } 
 app.post("/thread", upload.none(), (req, res) => { 
   console.log("creating a new thread", req.body) 
