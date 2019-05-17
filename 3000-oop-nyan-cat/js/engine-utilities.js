@@ -1,32 +1,32 @@
 let nextEnemySpot = enemies => { // 1
-    let enemySpots = GAME_WIDTH / ENEMY_WIDTH // 2
-    let spotsTaken = [false, false, false, false, false] // 3
-    enemies.forEach(enemy => { // 3
-        spotsTaken[enemy.spot] = true // 3
-    }) // 3
-    let candidate = undefined // 4
-    while (candidate === undefined || spotsTaken[candidate]) {
-        /* 5 */
-        candidate = Math.floor(Math.random() * enemySpots) /* 5 */
-    } /* 5 */
-    return candidate /* 6 */
+        let enemySpots = GAME_WIDTH / ENEMY_WIDTH // 2
+        let spotsTaken = [false, false, false, false, false] // 3
+        enemies.forEach(enemy => { // 3
+                spotsTaken[enemy.spot] = true // 3
+        }) // 3
+        let candidate = undefined // 4
+        while (candidate === undefined || spotsTaken[candidate]) {
+                /* 5 */
+                candidate = Math.floor(Math.random() * enemySpots) /* 5 */
+        } /* 5 */
+        return candidate /* 6 */
 } // 1
 let addBackground = root => {
-    /* 7 */
-    let bg = document.createElement("img") // 8
-    bg.src = "images/stars.png" // 9
-    bg.style.height = GAME_HEIGHT + "px" // 9
-    bg.style.width = GAME_WIDTH + "px" // 9
-    root.append(bg) // 10
+        /* 7 */
+        let bg = document.createElement("img") // 8
+        bg.src = "images/stars.png" // 9
+        bg.style.height = GAME_HEIGHT + "px" // 9
+        bg.style.width = GAME_WIDTH + "px" // 9
+        root.append(bg) // 10
 
-    let whiteBox = document.createElement("div") /* 11 */
-    whiteBox.style.zIndex = 100 /* 12 */
-    whiteBox.style.position = "absolute" /* 12 */
-    whiteBox.style.top = GAME_HEIGHT + "px" /* 12 */
-    whiteBox.style.height = ENEMY_HEIGHT + "px" /* 12 */
-    whiteBox.style.width = GAME_WIDTH + "px" /* 12 */
-    whiteBox.style.background = "#fff" /* 12 */
-    root.append(whiteBox) /* 13 */
+        let whiteBox = document.createElement("div") /* 11 */
+        whiteBox.style.zIndex = 100 /* 12 */
+        whiteBox.style.position = "absolute" /* 12 */
+        whiteBox.style.top = GAME_HEIGHT + "px" /* 12 */
+        whiteBox.style.height = ENEMY_HEIGHT + "px" /* 12 */
+        whiteBox.style.width = GAME_WIDTH + "px" /* 12 */
+        whiteBox.style.background = "#fff" /* 12 */
+        root.append(whiteBox) /* 13 */
 } // 7
 
 /* meta
@@ -34,19 +34,19 @@ let addBackground = root => {
     text: {
         1: `In this file we have functions that will be used in the Engine.js file. I put these functions
         in a separate file for pedagogical purposes.
-        
+
         nextEnemySpot is a variable that refers to a function. The function has one parameter,
         which we called enemies. enemies will refer to an array. The array will contain instances of the
-        Enemy class. To get more information about the argument that will get passed to this function, 
+        Enemy class. To get more information about the argument that will get passed to this function,
         please see the Engine.js file.
-        
+
         The purpose of this function is to determine in which slot to place our next enemy. The possibilities
         are 0, 1, 2, 3 or 4
         `,
         2: `enemySpots will refer to the number of spots available (can you calculate it?)  `,
         3: `To find out where to place an enemy, we first need to find out which are the spots available.
-        We don't want to place two enemies in the same lane. To accomplish this, we first create an 
-        array with 5 elements (why 5?) and each element is false. 
+        We don't want to place two enemies in the same lane. To accomplish this, we first create an
+        array with 5 elements (why 5?) and each element is false.
 
         We then use forEach to iterate through all the enemies. The argument to forEach is a function and
         the parameter of that function is \`enemy\`. This function will be called once for each enemy in the game
@@ -55,10 +55,10 @@ let addBackground = root => {
         If you look at the constructor of the \`Enemy\` class, you can see that every instance will have a \`spot\` property.
         We can use this property to modify the \`spotsTaken\` array.
 
-        For example, if 
+        For example, if
 
 \`\`\`javascript
-        enemies = [{spot: 1, spot: 3}]
+        enemies = [{spot: 1}, {spot: 3}]
 \`\`\`
 
         then \`spotsTaken\` will be
