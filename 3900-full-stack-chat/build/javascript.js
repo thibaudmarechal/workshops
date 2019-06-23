@@ -28425,7 +28425,7 @@ class ChatForm extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
 
       data.append("msg", this.state.message); // 2
 
-      fetch("http://localhost:4000/newmessage", {
+      fetch("/newmessage", {
         /* 2 */
         method: "POST",
         // 2
@@ -28505,29 +28505,26 @@ class UnconnectedChatMessages extends react__WEBPACK_IMPORTED_MODULE_0__["Compon
 
     _defineProperty(this, "componentDidMount", () => {
       // 2
-      let updateMessages = () => {
+      let updateMessages = async () => {
         // 3
-        fetch("/messages")
+        let response = await fetch("/messages");
         /* 3 */
-        .then(response => {
-          return response.text();
-        }) // 4
-        .then(responseBody => {
-          // 5
-          console.log("response from messages", responseBody); // 5
 
-          let parsed = JSON.parse(responseBody); // 6
+        let responseBody = await response.text(); // 4
 
-          console.log("parsed", parsed); // 6
+        console.log("response from messages", responseBody); // 5
 
-          this.props.dispatch({
-            // 7
-            type: "set-messages",
-            // 7
-            messages: parsed // 7
+        let parsed = JSON.parse(responseBody); // 6
 
-          }); // 7
-        }); // 5
+        console.log("parsed", parsed); // 6
+
+        this.props.dispatch({
+          // 7
+          type: "set-messages",
+          // 7
+          messages: parsed // 7
+
+        }); // 7
       }; // 3
 
 
@@ -28582,8 +28579,9 @@ let Chat = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateT
             the body of this method we will use setInterval to continuously
             get messages from the server`,
             3: `We define the function that makes a fetch request. As we will see, it will get called at regular intervals`,
-            4: `This line is necessary to get the body HTTP response.`,
-            5: `This is the function that's going to handle the HTTP response body. `,
+            4: `From the response object we can get a promise that resolves to the response body using the text method.
+            We can then use await. The function will resume once the http response body becomes available.`,
+            5: `It is always a good idea to console log the response body in case there's an error or an unxpected response. `,
             6: `The first thing to do is to parse the HTTP response. Looking at the backend, we see that
             it is the result of calling JSON.stringify on an array, so the result of JSON.parse will be an array`,
             7: `We dispatch an object with \`type\` \`"set-messages"\` and \`messages\` \`"parsed"\` so that
@@ -28640,7 +28638,7 @@ class UnconnectedLogin extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       }); // 1
     });
 
-    _defineProperty(this, "handleSubmit", evt => {
+    _defineProperty(this, "handleSubmit", async evt => {
       // 2
       evt.preventDefault(); // 2
 
@@ -28652,7 +28650,7 @@ class UnconnectedLogin extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
 
       data.append("password", this.state.password); // 3
 
-      fetch("/login", {
+      let response = await fetch("/login", {
         /* 3 */
         method: "POST",
         // 3
@@ -28660,32 +28658,29 @@ class UnconnectedLogin extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         // 3
         credentials: "include" // 3
 
-      }) // 3
-      .then(x => {
-        return x.text();
-      }) // 4
-      .then(responseBody => {
-        // 5
-        console.log("responseBody from login", responseBody); // 5
+      }); // 3
 
-        let body = JSON.parse(responseBody); // 5
+      let responseBody = await response.text(); // 4
 
-        console.log("parsed body", body); // 5
+      console.log("responseBody from login", responseBody); // 5
 
-        if (!body.success) {
-          // 6
-          alert("login failed"); // 6
+      let body = JSON.parse(responseBody); // 5
 
-          return; // 6
-        } // 6
+      console.log("parsed body", body); // 5
+
+      if (!body.success) {
+        // 6
+        alert("login failed"); // 6
+
+        return; // 6
+      } // 6
 
 
-        this.props.dispatch({
-          // 7
-          type: "login-success" // 7
+      this.props.dispatch({
+        // 7
+        type: "login-success" // 7
 
-        }); // 7
-      }); // 5
+      }); // 7
     });
 
     _defineProperty(this, "render", () => {
@@ -28737,9 +28732,11 @@ successfully logs in and we need to update the store to reflect this fact. This 
             2: `The handleSubmit method starts off in the normal way`,
             3: `We make the fetch request. In the body of the fetch request we put the information needed to successfully log in the user.
 Look for req.body.username and req.body.password on the backend to see how this information is used.`,
-            4: `This line is needed to get access to the HTTP response body`,
-            5: `This function is going to handle the HTTP response body. It's always a good idea to
-console.log the response body before parsing it because you'll be able to see the error from the server`,
+            4: `response refers to a response object, but what we're really interested in is the response body
+                We can use the text method, which returns a promise that resolves to the response body. We then use
+                await. This suspends the function until the promise is resolved.`,
+            5: `It is always a good idea to console log the response body in case
+            there's an error.`,
             6: `If the login was not a success, alert the user. `,
             7: `If the login is successful, dispatch an object with type \`"login-success"\`. Looking at the reducer
 in store.js, we see that it modifies the loggedIn property of the state of the store.`,
