@@ -7,7 +7,7 @@ let upload = multer({
 app.use('/images', express.static(__dirname + '/uploads')) 
 let posts = [] 
 let h = (element, children) => { 
-  return '<' + element + '>' + children.join('\n') + '</' + element.split().pop() + '>' 
+  return '<' + element + '>' + children.join('\n') + '</' + element.split(' ').shift() + '>' 
 } 
 let makePage = () => { 
   let postElements = posts.map(post => { 

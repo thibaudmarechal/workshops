@@ -8,7 +8,7 @@ let threads = []
 let passwordsAssoc = {} 
 let sessions = {} 
 let h = (element, children) => { 
-  return '<' + element + '>' + children.join('\n') + '</' + element.split().pop() + '>' 
+  return '<' + element + '>' + children.join('\n') + '</' + element.split(' ').shift() + '>' 
 } 
 let makePage = () => { 
   let threadElements = threads.map(post => { 
