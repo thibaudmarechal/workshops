@@ -4,9 +4,7 @@ class Video extends Component {
         return ( 
             <div> 
                 <iframe src={"https://player.vimeo.com/video/" + this.props.videoId} 
-                    width="640" height="360" frameborder="0" 
-                    webkitallowfullscreen mozallowfullscreen allowfullscreen>  
-                </iframe> 
+                    width="640" height="360" frameBorder="0" /> 
             </div>) 
     } 
 } 
