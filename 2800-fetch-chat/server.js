@@ -44,11 +44,12 @@ app.post("/messages", upload.none(), (req, res) => {
     user: sessions[req.cookies["sid"]]
   };
   messages.push(newMessage);
+  console.log("messages are the following: ", messages);
   res.sendFile(__dirname, "public/chat.html");
 });
 
-app.get("/messages", upload.none(), (req, res) => {
-  console.log("sending back the messages", messages);
+app.get("/messages", (req, res) => {
+  console.log("sending back messages", messages);
   res.send(JSON.stringify(messages));
 });
 
