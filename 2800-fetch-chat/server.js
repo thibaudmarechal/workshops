@@ -33,8 +33,20 @@ app.post("/login", upload.none(), (req, res) => {
   let sid = Math.floor(Math.random() * 100000000);
   console.log(sid);
   sessions[sid] = username;
+  console.log("This is user: ", sessions[sid]);
   res.cookie("sid", sid);
   res.sendFile(__dirname + "/public/chat.html");
+});
+
+app.post("/changeUsername", upload.none(), (req, res) => {
+  username = req.body.changeUsername;
+  sessions[sid] = username;
+  console.log("New username is: ", username);
+  res.send(
+    "<html><body>Succesfully changed username to: " +
+      username +
+      "</body></hmtl>"
+  );
 });
 
 app.post("/messages", upload.none(), (req, res) => {
@@ -45,7 +57,7 @@ app.post("/messages", upload.none(), (req, res) => {
   };
   messages.push(newMessage);
   console.log("messages are the following: ", messages);
-  res.sendFile(__dirname, "public/chat.html");
+  res.sendFile(__dirname + "/public/chat.html");
 });
 
 app.get("/messages", (req, res) => {

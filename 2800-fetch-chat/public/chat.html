@@ -1,8 +1,13 @@
 <html>
   <body>
+    <div>yo</div>
     <ul id="msg-list"></ul>
     <form action="/messages" method="POST" enctype="multipart/form-data">
-      <input type="text" name="message"></input>
+      <input placeholder="type your message" type="text" name="message"></input>
+      <input type="submit"></input>
+    </form>
+    <form action="/changeUsername" method="POST" enctype="multipart/form-data">
+      <input placeholder="change your username" type="text" name="changeUsername"></input>
       <input type="submit"></input>
     </form>
     <script src="/static/app.js"></script>
