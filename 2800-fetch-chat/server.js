@@ -19,8 +19,20 @@ app.get("/", (req, res) => {
 app.post("/signup", upload.none(), (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
+  if (password === "") {
+    res.send(
+      "<html><body><div>Password cannot be empty!</div><div><a href='/'>Try to sign up again.</a></div></body></hmtl>"
+    );
+    return;
+  }
+
   passwordsAssoc[username] = password;
-  res.send("<html><body>Sign up successful!</body></hmtl>");
+  console.log("Your new username is: ", username);
+  console.log("Your new password is: ", passwordsAssoc[username]);
+  console.log(passwordsAssoc);
+  res.send(
+    "<html><body><div>Sign up successful!</div><div><a href='/'>Now go log in!</a></div></body></hmtl>"
+  );
 });
 
 app.post("/login", upload.none(), (req, res) => {
@@ -38,13 +50,20 @@ app.post("/login", upload.none(), (req, res) => {
   res.sendFile(__dirname + "/public/chat.html");
 });
 
-app.post("/changeUsername", upload.none(), (req, res) => {
-  username = req.body.changeUsername;
-  sessions[sid] = username;
-  console.log("New username is: ", username);
+app.post("/set/username", upload.none(), (req, res) => {
+  const sessionId = req.cookies.sid;
+  const currentUsername = sessions[sessionId];
+  const newUsername = req.body.username;
+  passwordsAssoc[newUsername] = passwordsAssoc[currentUsername];
+  delete passwordsAssoc[currentUsername];
+  sessions[sessionId] = newUsername;
+  messages.forEach(message => {
+    if (message.user === currentUsername) message.user = newUsername;
+  });
+  console.log("New username is: ", newUsername);
   res.send(
     "<html><body>Succesfully changed username to: " +
-      username +
+      newUsername +
       "</body></hmtl>"
   );
 });
