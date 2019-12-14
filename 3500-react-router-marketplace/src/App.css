@@ -57,6 +57,34 @@ body {
 .center {
   margin: auto;
   width: 50%;
-  border: 3px solid green;
+  border: 3px solid orange;
   padding: 10px;
+}
+
+.cta {
+  padding: 5px;
+  margin-top: 15px;
+}
+
+.nav {
+  height: 30px;
+  position: sticky;
+  background-color: orange;
+  margin-bottom: 10px;
+  padding: 5px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav > a {
+  text-align: center;
+}
+
+.cart-indicator {
+  position: absolute;
+  color: white;
+  background-color: red;
+  top: 0px;
+  right: 5px;
 }

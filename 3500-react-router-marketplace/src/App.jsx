@@ -4,56 +4,141 @@ import { Route, BrowserRouter } from "react-router-dom";
 import Seller from "./Seller.jsx";
 import Item from "./Item.jsx";
 import Details from "./Details.jsx";
-import { initialItems, initialSellers, initialReviews } from "./Data.js";
+import Reviewer from "./Reviewer.jsx";
+import Cart from "./Cart.jsx";
+import Purchases from "./Purchases.jsx";
+import { Link } from "react-router-dom";
+import {
+  initialItems,
+  initialSellers,
+  initialReviews,
+  initialReviewers
+} from "./Data.js";
+
+const renderSeller = routerData => {
+  const sellerId = routerData.match.params.sellerId;
+  const candidate = initialSellers.find(seller => {
+    return seller.id === sellerId;
+  });
+  return <Seller seller={candidate} />;
+};
+
+const renderReviewer = routerData => {
+  const reviewerId = routerData.match.params.reviewerId;
+  const candidate = initialReviewers.find(reviewer => {
+    return reviewer.id === reviewerId;
+  });
+  return <Reviewer reviewer={candidate} />;
+};
+
+const renderAllSellers = () => {
+  return (
+    <div>
+      <h3>All Sellers</h3>
+      {initialSellers.map(seller => (
+        <Link to={"/seller/" + seller.id}>
+          <h3>{seller.name}</h3>
+        </Link>
+      ))}
+      <div>
+        <Link to={"/"}>Back to main page</Link>
+      </div>
+    </div>
+  );
+};
+
+const renderAllItems = () => {
+  return (
+    <div>
+      {initialItems.map(item => (
+        <Item item={item} />
+      ))}
+    </div>
+  );
+};
 
 class App extends Component {
-  renderAllItems() {
+  constructor(props) {
+    super(props);
+    this.state = { cart: [], itemsBought: [] };
+  }
+
+  renderPurchases = () => {
     return (
       <div>
-        {initialItems.map(item => (
-          <Item
-            cost={item.price}
-            key={item.id}
-            id={item.id}
-            sellerId={item.sellerId}
-            imgLocation={item.image}
-            description={item.description}
-          />
-        ))}
+        <Purchases purchases={this.state.itemsBought} />
       </div>
     );
-  }
-  renderSeller = routerData => {
-    let sellerId = routerData.match.params.sellerId;
-    let candidate = initialSellers.find(seller => {
-      return seller.id === sellerId;
-    });
-    return <Seller seller={candidate} />;
+  };
+
+  removeItem = itemIdx => {
+    const cartCopy = this.state.cart.slice();
+    cartCopy.splice(itemIdx, 1);
+    this.setState({ cart: cartCopy });
+  };
+
+  emptyCart = item => {
+    this.setState({ cart: [] });
+  };
+
+  addItemsBought = items => {
+    this.setState({ itemsBought: this.state.itemsBought.concat(items) });
+  };
+
+  addToCart = item => {
+    this.setState({ cart: this.state.cart.concat(item) });
+  };
+
+  renderCart = () => {
+    return (
+      <Cart
+        cart={this.state.cart}
+        emptyCart={this.emptyCart}
+        removeItem={this.removeItem}
+        addItemsBought={this.addItemsBought}
+      />
+    );
   };
 
   renderDetails = routerData => {
-    let itemId = routerData.match.params.itemId;
-    let candidate = initialItems.find(item => {
+    const itemId = routerData.match.params.itemId;
+    const candidate = initialItems.find(item => {
+      if (item === undefined) return <div>Item not found</div>;
       return item.id === itemId;
     });
-    return <Details item={candidate} />;
+    return <Details item={candidate} addToCart={this.addToCart} />;
   };
 
   render() {
     return (
       <BrowserRouter>
         <div>
-          <Route exact={true} path="/" render={this.renderAllItems} />
-          <Route
-            exact={true}
-            path="/seller/:sellerId"
-            render={this.renderSeller}
-          />
+          <div className="nav">
+            <Link to="/">Home</Link>
+            <Link to="/sellers">View all sellers</Link>
+            <Link to="/purchases">View all purchases</Link>
+            <span className="cart-indicator">{this.state.cart.length}</span>
+            <Link to="/cart">
+              <img src={"/cart-icon.svg"} />{" "}
+            </Link>
+          </div>
+          <Route exact={true} path="/" render={renderAllItems} />
+          <Route exact={true} path="/seller/:sellerId" render={renderSeller} />
           <Route
             exact={true}
             path="/item/:itemId"
-            render={this.renderDetails}
+            render={routerData =>
+              this.renderDetails(routerData, this.addToCart)
+            }
           />
+          <Route
+            exact={true}
+            path="/reviewer/:reviewerId"
+            render={renderReviewer}
+          />
+          <Route exact={true} path="/sellers" render={renderAllSellers} />
+          <Route exact={true} path="/cart" render={this.renderCart} />
+          <Route exact={true} path="/purchases" render={this.renderPurchases} />
         </div>
       </BrowserRouter>
     );

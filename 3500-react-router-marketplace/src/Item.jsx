@@ -4,17 +4,27 @@ import "./App.css";
 
 class Item extends Component {
   render() {
+    const {
+      image,
+      id,
+      description,
+      price,
+      sellerId,
+      inventory
+    } = this.props.item;
     return (
       <div className="card center">
-        <img height="100px" src={this.props.imgLocation} />
+        <img height="100px" src={image} />
         <div>
-          <div>{this.props.description}</div>
-          <div>${this.props.cost}</div>
           <div>
-            <Link to={"/seller/" + this.props.sellerId}>Link to seller</Link>
+            <h3>{description}</h3>
+          </div>
+          <div>${price}</div>
+          <div>
+            <Link to={"/seller/" + sellerId}>Visit the seller profile</Link>
           </div>
           <div>
-            <Link to={"/item/" + this.props.id}>View more!</Link>
+            <Link to={"/item/" + id}>View more details</Link>
           </div>
         </div>
       </div>

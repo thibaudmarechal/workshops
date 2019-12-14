@@ -1,4 +1,4 @@
-let initialItems = [
+const initialItems = [
   {
     description: "Nice boats. 50% off, wow!",
     price: 10000,
@@ -6,7 +6,7 @@ let initialItems = [
     image: "/boat.png",
     id: "asewq",
     sellerId: "ewio",
-    reviewIds: ["sdvn3c", "pojkbef"]
+    reviewIds: ["sdvn3c", "pojkbef", "weokoinw"]
   },
   {
     description: "Lawn chairs",
@@ -33,7 +33,7 @@ let initialItems = [
     image: "/bitcoin.jpeg",
     id: "quhfeuhef",
     sellerId: "qwefc",
-    reviewIds: []
+    reviewIds: ["iuni94nua"]
   },
   {
     description: "Cybertruck",
@@ -46,45 +46,84 @@ let initialItems = [
   }
 ];
 
-let initialSellers = [
+const initialSellers = [
   {
     id: "ewio",
-    name: "Jack Frost",
-    rating: "5 stars"
+    name: "Craig Wright",
+    rating: "0.5/5 stars",
+    pic: "/csw.png",
+    itemIds: ["asewq"]
   },
   {
     id: "qwefc",
     name: "Satoshi Nakamoto",
-    rating: "5 stars"
+    rating: "5/5 stars",
+    pic: "/satoshi.jpg",
+    itemIds: ["sfeihqq", "quhfeuhef"]
   },
   {
     id: "xcvb",
-    name: "Hank Green",
-    rating: "2 stars"
+    name: "The Dude",
+    rating: "2/5 stars",
+    pic: "/dude.jpg",
+    itemIds: ["qiejiuhf", "wqwasq"]
   }
 ];
 
-let initialReviews = [
+const initialReviews = [
   {
-    id: "sdvn3c",
+    reviewId: "sdvn3c",
+    itemId: "asewq",
     content: "Awesome product. Love it!",
-    author: "MrPoopyButthole"
+    authorId: "nveub398hbnc"
   },
   {
-    id: "iuwhbrvo",
+    reviewId: "iuwhbrvo",
+    itemId: "wqwasq",
     content: "It's OK. Cheap and easy!",
-    author: "Trump"
+    authorId: "nveub398hbnc"
   },
   {
-    id: "oijhiuhr",
-    content: "How dare you?",
-    author: "Greta"
+    reviewId: "iuni94nua",
+    itemId: "quhfeuhef",
+    content: "Orange coin good, number go up!",
+    authorId: "nveub398hbnc"
   },
   {
-    id: "pojkbef",
+    reviewId: "weokoinw",
+    itemId: "asewq",
+    content: "Bad. I don't like it!",
+    authorId: "nveub398hbnc"
+  },
+  {
+    reviewId: "oijhiuhr",
+    itemId: "sfeihqq",
+    content: "Bad. How dare you?",
+    authorId: "inb123n9njb"
+  },
+  {
+    reviewId: "pojkbef",
+    itemId: "asewq",
     content: "Bof bof",
-    author: "Albert"
+    authorId: "inb123n9njb"
   }
 ];
 
-export { initialItems, initialSellers, initialReviews };
+const initialReviewers = [
+  {
+    name: "Trump",
+    pic: "/trump.jpg",
+    id: "nveub398hbnc",
+    description: "Orange-skinned guy who happens to be the US President",
+    reviewIds: ["iuwhbrvo", "weokoinw", "sdvn3c", "iuni94nua"]
+  },
+  {
+    name: "Albert",
+    pic: "/albert.jpg",
+    id: "inb123n9njb",
+    description: "Fisherman who likes to sell things online",
+    reviewIds: ["pojkbef", "oijhiuhr"]
+  }
+];
+
+export { initialItems, initialSellers, initialReviews, initialReviewers };
