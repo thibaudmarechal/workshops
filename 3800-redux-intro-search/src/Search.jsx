@@ -1,41 +1,57 @@
-import { connect } from 'react-redux' 
-import React, { Component } from 'react' 
-class UnconnectedSearch extends Component { 
-    handleQuery = evt => { 
-        this.props.dispatch({ type: 'query', q: evt.target.value }) 
-    } 
-    handleMinimumPrice = evt => { 
-        let price = parseInt(evt.target.value) 
-        this.props.dispatch({ type: 'minimum-price', price: price }) 
-    } 
-    handleMaximumPrice = evt => { 
-        let price = parseInt(evt.target.value) 
-        this.props.dispatch({ type: 'maximum-price', price: price }) 
-    } 
-    render = () => { 
-        return ( 
-            <div> 
-                <div> 
-                    Search query 
-                    <input type="text" onChange={this.handleQuery} value={this.props.query} /> 
-                </div> 
-                <div> 
-                    Minimum price 
-                    <input type="text" onChange={this.handleMinimumPrice} value={this.props.minPrice} /> 
-                </div> 
-                <div> 
-                    Maximum price 
-                    <input type="text" onChange={this.handleMaximumPrice} value={this.props.maxPrice} /> 
-                </div> 
-            </div>) 
-    } 
-} 
-let mapStateToProps = st => { 
-    return { 
-        query: st.searchQuery, 
-        minPrice: st.min, 
-        maxPrice: st.max 
-    } 
-} 
-let Search = connect(mapStateToProps)(UnconnectedSearch) 
-export default Search 
+import { connect } from "react-redux";
+import React, { Component } from "react";
+import AdvancedSearch from "./AdvancedSearch.jsx";
+
+class UnconnectedSearch extends Component {
+  handleQuery = event => {
+    this.props.dispatch({ type: "QUERY", payload: event.target.value });
+    this.props.query = "";
+  };
+
+  clearForm = () => {
+    this.props.dispatch({ type: "CLEAR" });
+  };
+
+  handleAdvancedSearch = event => {
+    this.props.dispatch({ type: "ADVANCED" });
+  };
+  render = () => {
+    return (
+      <div>
+        <form>
+          <h3>Search</h3>
+          <div>
+            <button onClick={this.clearForm}>Clear Form</button>
+          </div>
+          <label>
+            Query
+            <input
+              type="text"
+              onChange={this.handleQuery}
+              value={this.props.query}
+            />
+          </label>
+          <button onClick={this.handleAdvancedSearch} type="button">
+            Advanced Search
+          </button>
+          <div style={{ display: this.props.advanced }}>
+            <AdvancedSearch />
+          </div>
+        </form>
+      </div>
+    );
+  };
+}
+
+let mapStateToProps = st => {
+  return {
+    query: st.searchQuery,
+    min: st.min,
+    max: st.max,
+    checked: st.checked,
+    advanced: st.advanced
+  };
+};
+
+let Search = connect(mapStateToProps)(UnconnectedSearch);
+export default Search;
