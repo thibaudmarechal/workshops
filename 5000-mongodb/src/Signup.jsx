@@ -8,7 +8,7 @@ class Signup extends Component {
       usernameInput: "",
       passwordInput: "",
       username: undefined,
-      login: ""
+      auth: ""
     };
   }
   handleUsernameChange = event => {
@@ -32,12 +32,15 @@ class Signup extends Component {
     if (parsed.success) {
       this.setState({ username: name });
     } else {
-      this.setState({ login: parsed.login });
+      this.setState({ auth: parsed.auth });
       alert(parsed.message);
-      console.log(this.state.login);
+      console.log(this.state.auth);
     }
   };
   render = () => {
+    if (this.state.auth === "login") {
+      return <Login />;
+    }
     if (this.state.username === undefined) {
       return (
         <div>
@@ -59,9 +62,6 @@ class Signup extends Component {
           </form>
         </div>
       );
-    }
-    if ((this.state.login = "login")) {
-      return <Login />;
     }
     return <Content username={this.state.username} />;
   };

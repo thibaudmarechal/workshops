@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import Content from "./Content.jsx";
+import Signup from "./Signup.jsx";
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       usernameInput: "",
       passwordInput: "",
-      username: undefined
+      username: undefined,
+      auth: ""
     };
   }
   handleUsernameChange = event => {
@@ -31,9 +33,15 @@ class Login extends Component {
     alert(parsed.message);
     if (parsed.success) {
       this.setState({ username: name });
+    } else {
+      this.setState({ auth: parsed.auth });
+      console.log(this.state.auth);
     }
   };
   render = () => {
+    if (this.state.auth === "signup") {
+      return <Signup />;
+    }
     if (this.state.username === undefined) {
       return (
         <div>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Signup from "./Signup.jsx";
 import Login from "./Login.jsx";
+import Content from "./Content.jsx";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +12,18 @@ class App extends Component {
     };
   }
   render = () => {
-    return <div>{<Signup /> && <Login /> ? <Signup /> : <Content />}</div>;
+    if (!(<Signup /> && <Login />)) {
+      return (
+        <div>
+          <Content />
+        </div>
+      );
+    }
+    return (
+      <div>
+        <Signup />
+      </div>
+    );
   };
 }
 export default App;

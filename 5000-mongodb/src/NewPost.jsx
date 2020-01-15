@@ -3,27 +3,32 @@ class NewPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      file: "",
-      description: ""
+      image: "",
+      description: "",
+      audio: ""
     };
   }
-  handleDescriptionChange = event => {
+  handleNewDescription = event => {
     this.setState({ description: event.target.value });
   };
-  handleFileChange = event => {
-    this.setState({ file: event.target.files[0] });
+  handleNewImage = event => {
+    this.setState({ image: event.target.files[0] });
+  };
+  handleNewAudio = event => {
+    this.setState({ audio: event.target.files[0] });
   };
   handleSubmit = async event => {
     event.preventDefault();
     let data = new FormData();
-    data.append("img", this.state.file);
+    data.append("img", this.state.image);
     data.append("description", this.state.description);
     data.append("username", this.props.username);
+    data.append("audio", this.state.audio);
     const response = await fetch("/new-post", { method: "POST", body: data });
     const body = await response.text();
     const parsed = JSON.parse(body);
     console.log("res from server: ", parsed);
-    this.setState({ file: "", description: "" });
+    this.setState({ image: "", description: "", audio: "" });
   };
   render = () => {
     return (
@@ -33,13 +38,17 @@ class NewPost extends Component {
             description
             <input
               type="text"
-              onChange={this.handleDescriptionChange}
+              onChange={this.handleNewDescription}
               value={this.state.description}
             />
           </label>
           <label>
             image
-            <input type="file" onChange={this.handleFileChange} />
+            <input type="file" onChange={this.handleNewImage} />
+          </label>
+          <label>
+            audio
+            <input type="file" onChange={this.handleNewAudio} />
           </label>
           <input type="submit" value="Create New" />
         </form>
