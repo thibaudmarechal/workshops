@@ -9,25 +9,27 @@ let multer = require("multer");
 let upload = multer({ dest: __dirname + "/uploads/" });
 app.use("/", express.static("build"));
 app.use("/uploads", express.static("uploads"));
-
+let sha256 = require("js-sha256");
+console.log("non-hash: ", "x");
+console.log("hash: ", sha256("x"));
 let dbo = undefined;
 let url =
   "mongodb+srv://bob:bobsue@cluster0-md5qo.azure.mongodb.net/test?retryWrites=true&w=majority";
 MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
   dbo = client.db("media-board");
 });
-String.prototype.hashCode = function() {
-  var hash = 0;
-  if (this.length == 0) {
-    return hash;
-  }
-  for (var i = 0; i < this.length; i++) {
-    var char = this.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash = hash & hash; // Convert to 32bit integer
-  }
-  return hash;
-};
+// String.prototype.hashCode = function() {
+//   var hash = 0;
+//   if (this.length == 0) {
+//     return hash;
+//   }
+//   for (var i = 0; i < this.length; i++) {
+//     var char = this.charCodeAt(i);
+//     hash = (hash << 5) - hash + char;
+//     hash = hash & hash; // Convert to 32bit integer
+//   }
+//   return hash;
+// };
 app.get("/remove-all", (req, res) => {
   console.log("req from client to /remove-all endpoint");
   dbo.collection("posts").remove({});
@@ -81,7 +83,7 @@ app.post("/signup", upload.none(), (req, res) => {
     if (user === null) {
       console.log("sign up successful for:", name);
       console.log("plain password", pwd);
-      pwd = pwd.hashCode();
+      pwd = sha256(pwd);
       console.log("hashed password", pwd);
       dbo.collection("users").insertOne({ username: name, password: pwd });
       res.send(JSON.stringify({ success: true }));
@@ -129,7 +131,7 @@ app.post("/login", upload.none(), (req, res) => {
       );
       return;
     }
-    if (user.password === pwd.hashCode()) {
+    if (user.password === sha256(pwd)) {
       console.log("successfully logged in");
       res.send(JSON.stringify({ success: true, message: "Login successful!" }));
       return;
